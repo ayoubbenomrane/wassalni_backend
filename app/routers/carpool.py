@@ -36,12 +36,11 @@ def create_carpool(
 
 
 # Retrieve all carpools
-@router.get("", response_model=CarpoolListResponse)
 
 
 
 # Retrieve all carpools with optional query selectors
-@router.get("/", response_model=CarpoolListResponse)
+@router.get("", response_model=CarpoolListResponse)
 def get_all_carpools(
     db: Session = Depends(get_db),
     destination: str = Query(None, description="Destination city"),

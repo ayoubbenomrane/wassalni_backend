@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text, Boolean
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text, Boolean,LargeBinary
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -8,11 +8,12 @@ Base = declarative_base()
 # User Model
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True, nullable=False)  # Simplified to "id"
+    id = Column(Integer, primary_key=True, nullable=False)
     firstName = Column(String(255), nullable=False, index=True)
     lastName = Column(String(255), nullable=False, index=True)
-    phoneNumber = Column(String(20), nullable=True)  # Optional phone number
-    profile_picture = Column(String(255), nullable=True)  # Profile picture path/URL
+    phoneNumber = Column(String(20), nullable=True)
+    profile_picture = Column(LargeBinary, nullable=True)  # Store image binary data
+    gender = Column(String(255), nullable=True)
 
     password = Column(String(255), nullable=False)
     email = Column(String(255), index=True, nullable=False)
@@ -21,8 +22,6 @@ class User(Base):
     bookings = relationship("Booking", back_populates="user")
     feedback_received = relationship("Feedback", back_populates="receiver", foreign_keys="Feedback.receiver_id")
     feedback_given = relationship("Feedback", back_populates="giver", foreign_keys="Feedback.giver_id")
-
-
 # Carpool Model
 class Carpool(Base):
     __tablename__ = "carpools"

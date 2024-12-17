@@ -2,12 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.models import Feedback, User
 from app.database import get_db
-from app.schema.feedback import FeedbackCreate, FeedbackResponse, FeedbackListResponse
-from app.utils import get_current_user
+from app.schemas.feedback import FeedbackCreate, FeedbackResponse, FeedbackListResponse
+from app.oauth2 import get_current_user
 
 # Initialize the router
 router = APIRouter(
-    prefix="/feedbacks",
     tags=["Feedback"],
 )
 
