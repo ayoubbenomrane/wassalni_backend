@@ -52,6 +52,15 @@ def get_received_feedbacks(db: Session = Depends(get_db), current_user=Depends(g
     feedbacks = db.query(Feedback).filter(Feedback.receiver_id == current_user.id).all()
     return {"feedbacks": feedbacks}
 
+# get feedback of a certain user by id
+
+@router.get("/{user_id}",response_model=FeedbackListResponse)
+def get_feedbacks(user_id:int, db: Session = Depends(get_db)):
+    feedbacks = db.query(Feedback).filter(Feedback.receiver_id == user_id).all()
+    return {"feedbacks": feedbacks}
+
+
+
 
 # Get feedback given by the current user
 @router.get("/given", response_model=FeedbackListResponse)
