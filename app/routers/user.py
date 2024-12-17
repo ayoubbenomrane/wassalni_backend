@@ -10,7 +10,7 @@ from datetime import datetime
 router = APIRouter(
     tags=['user']
 )
-@router.post("/signup")
+@router.post("/signup",response_model=user.UserResponse)
 def create_user(user:user.UserCreate,db:Session=Depends(get_db)):
     hashed_password=utils.hash(user.password)
     user.password=hashed_password
