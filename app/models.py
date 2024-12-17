@@ -15,7 +15,7 @@ class User(Base):
     profile_picture = Column(String(255), nullable=True)  # Profile picture path/URL
 
     password = Column(String(255), nullable=False)
-    email = Column(String(255), unique=True, index=True, nullable=False)
+    email = Column(String(255), index=True, nullable=False)
 
     carpools = relationship("Carpool", back_populates="owner")
     bookings = relationship("Booking", back_populates="user")
