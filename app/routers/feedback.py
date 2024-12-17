@@ -13,7 +13,7 @@ router = APIRouter(
 
 
 # Create new feedback
-@router.post("/", response_model=FeedbackResponse)
+@router.post("", response_model=FeedbackResponse)
 def create_feedback(
     feedback: FeedbackCreate,
     db: Session = Depends(get_db),
@@ -45,7 +45,7 @@ def create_feedback(
 
 
 # Get feedback received by a user
-@router.get("/received/", response_model=FeedbackListResponse)
+@router.get("/received", response_model=FeedbackListResponse)
 def get_received_feedbacks(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     """
     Retrieve feedback received by the current user.
@@ -55,7 +55,7 @@ def get_received_feedbacks(db: Session = Depends(get_db), current_user=Depends(g
 
 
 # Get feedback given by the current user
-@router.get("/given/", response_model=FeedbackListResponse)
+@router.get("/given", response_model=FeedbackListResponse)
 def get_given_feedbacks(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     """
     Retrieve feedback given by the current user.

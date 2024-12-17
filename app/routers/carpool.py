@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 # Create a new carpool
-@router.post("/", response_model=CarpoolResponse)
+@router.post("", response_model=CarpoolResponse)
 def create_carpool(
     carpool: CarpoolCreate,
     db: Session = Depends(get_db),
@@ -36,7 +36,7 @@ def create_carpool(
 
 
 # Retrieve all carpools
-@router.get("/", response_model=CarpoolListResponse)
+@router.get("", response_model=CarpoolListResponse)
 
 
 

@@ -13,7 +13,7 @@ router = APIRouter(
 
 
 # Create a new booking
-@router.post("/", response_model=BookingResponse)
+@router.post("", response_model=BookingResponse)
 def create_booking(
     booking: BookingCreate,
     db: Session = Depends(get_db),
@@ -49,7 +49,7 @@ def create_booking(
 
 
 # Retrieve all bookings for the current user
-@router.get("/", response_model=BookingListResponse)
+@router.get("", response_model=BookingListResponse)
 def get_user_bookings(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     """
     Retrieve all bookings made by the current user.
