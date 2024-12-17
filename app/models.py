@@ -16,11 +16,13 @@ class User(Base):
     gender = Column(String(255), nullable=True)
     birthDay = Column(Date, nullable=True)  # Added birthDay column
     password = Column(String(255), nullable=False)
+    rating=Column(Float,default=5)
     email = Column(String(255), index=True, nullable=False)
     carpools = relationship("Carpool", back_populates="owner")
     bookings = relationship("Booking", back_populates="user")
     feedback_received = relationship("Feedback", back_populates="receiver", foreign_keys="Feedback.receiver_id")
     feedback_given = relationship("Feedback", back_populates="giver", foreign_keys="Feedback.giver_id")
+    
 # Carpool Model
 class Carpool(Base):
     __tablename__ = "carpools"

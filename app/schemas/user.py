@@ -18,14 +18,9 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
-class UserResponse(BaseModel):
-    id: int
-    firstName: str
-    lastName: str
-    phoneNumber: Optional[str] = None
-    email: EmailStr
-    gender: Optional[str] = None
-    profile_picture: Optional[str] = None
+class UserResponse(UserBase):
+    id:int
+    rating:float
 
     class Config:
         orm_mode = True
