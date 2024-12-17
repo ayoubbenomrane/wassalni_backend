@@ -14,10 +14,8 @@ class User(Base):
     phoneNumber = Column(String(20), nullable=True)
     profile_picture = Column(LargeBinary, nullable=True)  # Store image binary data
     gender = Column(String(255), nullable=True)
-
     password = Column(String(255), nullable=False)
     email = Column(String(255), index=True, nullable=False)
-
     carpools = relationship("Carpool", back_populates="owner")
     bookings = relationship("Booking", back_populates="user")
     feedback_received = relationship("Feedback", back_populates="receiver", foreign_keys="Feedback.receiver_id")

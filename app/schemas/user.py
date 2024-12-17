@@ -20,7 +20,7 @@ class UserCreate(UserBase):
 # Schema for User Response (Exclude Binary Data)
 class UserResponse(UserBase):
     id: int
-    profile_picture: Optional[str] = None  # Omitted from the response for simplicity
+    profile_picture: Optional[bytes] = None  # Omitted from the response for simplicity
 
     class Config:
         orm_mode = True
