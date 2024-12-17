@@ -12,7 +12,7 @@ class User(Base):
     firstName = Column(String(255), nullable=False, index=True)
     lastName = Column(String(255), nullable=False, index=True)
     phoneNumber = Column(String(20), nullable=True)
-    profile_picture = Column(LargeBinary, nullable=True)  # Store image binary data
+    profilePicture = Column(String(20), nullable=True)
     gender = Column(String(255), nullable=True)
     password = Column(String(255), nullable=False)
     email = Column(String(255), index=True, nullable=False)

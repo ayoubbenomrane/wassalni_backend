@@ -3,32 +3,26 @@ from typing import Optional
 
 
 # Base Schema: Shared properties for User
-class UserBase(BaseModel):
+from pydantic import BaseModel, EmailStr
+from typing import Optional
+
+class UserCreate(BaseModel):
     firstName: str
     lastName: str
     phoneNumber: Optional[str] = None
-    gender: Optional[str] = None
     email: EmailStr
-
-
-# Schema for Creating a User (Sign-Up)
-class UserCreate(UserBase):
     password: str
-    # Profile picture will be handled separately via UploadFile in the route
+    gender: Optional[str] = None
+    profile_picture: Optional[str] = None  # Base64-encoded string
 
-
-# Schema for User Response (Exclude Binary Data)
-class UserResponse(UserBase):
+class UserResponse(BaseModel):
     id: int
-    profile_picture: Optional[bytes] = None  # Omitted from the response for simplicity
-
-    class Config:
-        orm_mode = True
-
-
-# Schema for Retrieving Profile Picture (Binary Data)
-class ProfilePictureResponse(BaseModel):
-    profile_picture: bytes  # This will hold the binary image data
+    firstName: str
+    lastName: str
+    phoneNumber: Optional[str] = None
+    email: EmailStr
+    gender: Optional[str] = None
+    profile_picture: Optional[str] = None
 
     class Config:
         orm_mode = True
