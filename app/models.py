@@ -12,7 +12,7 @@ class User(Base):
     firstName = Column(String(255), nullable=False, index=True)
     lastName = Column(String(255), nullable=False, index=True)
     phoneNumber = Column(String(20), nullable=True)
-    profilePicture = Column(String(20), nullable=True)
+    profilePicture = Column(Text, nullable=True)
     gender = Column(String(255), nullable=True)
     birthDay = Column(Date, nullable=True)  # Added birthDay column
     password = Column(String(255), nullable=False)
