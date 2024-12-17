@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException,Query
 from sqlalchemy.orm import Session
 from app.models import Carpool
 from app.database import get_db
@@ -37,13 +37,41 @@ def create_carpool(
 
 # Retrieve all carpools
 @router.get("/", response_model=CarpoolListResponse)
-def get_all_carpools(db: Session = Depends(get_db)):
-    """
-    Retrieve a list of all carpools.
-    """
-    carpools = db.query(Carpool).all()
-    return {"carpools": carpools}
 
+
+
+# Retrieve all carpools with optional query selectors
+@router.get("/", response_model=CarpoolListResponse)
+def get_all_carpools(
+    db: Session = Depends(get_db),
+    destination: str = Query(None, description="Destination city"),
+    departure: str = Query(None, description="Source city"),
+    date: str = Query(None, description="Departure date (YYYY-MM-DD)"),
+    min_seats: int = Query(None, description="Minimum number of available seats")
+):
+  
+    # Start with the base query
+    query = db.query(Carpool)
+
+    # Apply filters if query parameters are provided
+    if destination:
+        query = query.filter(Carpool.destination == destination)
+    if departure:
+        query = query.filter(Carpool.departure == departure)
+    if date:
+        try:
+            # Parse the date string and filter only by date
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+            query = query.filter(cast(Carpool.time, Date) == date_obj)
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid date format. Use 'YYYY-MM-DD'")
+
+    if min_seats is not None:
+        query = query.filter(Carpool.seats_available >= min_seats)
+
+    # Execute the query
+    carpools = query.all()
+    return {"carpools": carpools}
 
 # Retrieve a single carpool by ID
 @router.get("/{carpool_id}", response_model=CarpoolResponse)
