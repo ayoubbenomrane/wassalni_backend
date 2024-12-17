@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text, Boolean,LargeBinary
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text, Boolean,Date
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -14,6 +14,7 @@ class User(Base):
     phoneNumber = Column(String(20), nullable=True)
     profilePicture = Column(String(20), nullable=True)
     gender = Column(String(255), nullable=True)
+    birthDay = Column(Date, nullable=True)  # Added birthDay column
     password = Column(String(255), nullable=False)
     email = Column(String(255), index=True, nullable=False)
     carpools = relationship("Carpool", back_populates="owner")
